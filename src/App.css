@@ -872,3 +872,64 @@ h1, h2, h3 {
 #home, #projects, #skills, #certifications, #blogs, #contact {
   scroll-margin-top: 80px;
 }
+
+/* ── MOBILE RESPONSIVE ───────────────── */
+@media (max-width: 768px) {
+
+  .top-nav {
+    padding:12px 20p;
+    flex-direction: column;
+    gap: 10px;
+
+  }
+  .nav-links {
+    gap: 14px;
+    justify-content: center;
+  
+  }
+
+  .nav-link {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+
+  }
+  .hero-content {
+    grid-template-columns: 1fr;
+    padding: 90px 24px 40px;
+    gap: 40px;
+  }
+
+  .hero-title {
+    font-size: clamp(48px, 14vw, 72px);
+  }
+
+  .hero-right {
+    display: none;
+  }
+
+  .elegant-section {
+    padding: 80px 24px 60px;
+  }
+
+  .projects-grid, .blogs-grid, .cert-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .split-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .section-title {
+    font-size: clamp(36px, 10vw, 52px);
+  }
+
+  .skills-categories {
+    gap: 32px;
+  }
+}
