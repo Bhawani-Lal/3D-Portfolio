@@ -4,6 +4,7 @@ import { OrbitControls, Stars } from "@react-three/drei";
 import "./App.css";
 import { TypeAnimation } from "react-type-animation";
 import avatar from "./assets/avatar.png";
+
 const PROJECTS = [
   {
     id: "smartmaintain",
@@ -13,49 +14,57 @@ const PROJECTS = [
     desc: "MSc dissertation: LSTM + Random Forest hybrid on NASA C-MAPSS for turbofan engine RUL prediction, with SHAP explainability and a RAG-powered Copilot layer.",
     tech: ["Python", "LSTM", "Random Forest", "SHAP", "NASA C-MAPSS", "RAG"],
     detail:
-      "Dissertation project building a predictive maintenance system for industrial turbofan engines. A hybrid LSTM + Random Forest architecture is trained on NASA's C-MAPSS dataset to predict Remaining Useful Life (RUL). SHAP analysis provides model explainability. A SmartMaintain Copilot (RAG + function calling) is layered on top for natural language querying of maintenance insights.",
+      "Dissertation project building a predictive maintenance system for industrial turbofan engines. A hybrid LSTM + Random Forest architecture trained on NASA C-MAPSS FD001 to predict Remaining Useful Life (RUL), achieving MAE of 12.76 and RMSE of 16.21. SHAP analysis identifies top predictive sensors. SmartMaintain Copilot (RAG + function calling) enables natural language querying of maintenance insights.",
     features: [
       "Hybrid LSTM + Random Forest RUL prediction",
       "NASA C-MAPSS turbofan engine dataset",
-      "SHAP analysis for model explainability",
+      "SHAP analysis — top sensors: mean_s3, mean_s21, last_s11",
       "SmartMaintain Copilot — RAG + function calling",
-      "Progress Log 2 cleared — submission Sep 2025",
+      "MAE: 12.76 | RMSE: 16.21",
     ],
+    github: "https://github.com/Bhawani-Lal/Smartmaintain_Dissertation",
     live: true,
+    liveLink: null,
   },
   {
-    id: "chatbot",
+    id: "aidoc",
     num: "02",
-    title: "Mental Health Chatbot",
-    subtitle: null,
-    desc: "AI-powered chatbot for supportive conversations, using Gemini API with Supabase authentication and persistent chat history.",
-    tech: ["HTML", "CSS", "JS", "Supabase", "Gemini API"],
+    title: "AI Document Intelligence Tool",
+    subtitle: "RAG & Generative AI",
+    desc: "RAG-powered document Q&A system that ingests business documents and enables natural language querying with answers cited to the source. Built with Claude API, LangChain, FastAPI, and React.",
+    tech: ["Python", "Claude API", "LangChain", "RAG", "FastAPI"],
     detail:
-      "An AI-powered mental health chatbot designed to provide supportive conversations and emotional guidance. Focuses on a safe, calming UX with Supabase authentication and intelligent AI-based responses powered by Gemini API.",
+      "RAG-powered tool that ingests business documents (PDFs, reports) and enables natural language Q&A with source citations. Implements semantic chunking, vector embeddings, and retrieval-augmented generation using Claude API. FastAPI backend with React frontend for document upload, query, and structured insight extraction — targeting McKinsey Digital-style document intelligence workflows.",
     features: [
-      "User login & signup via Supabase",
-      "AI responses using Gemini API",
-      "Persistent chat history",
-      "Supportive conversation UI design",
+      "Document ingestion — PDF and report parsing",
+      "Semantic chunking and vector embeddings",
+      "RAG pipeline using Claude API + LangChain",
+      "Source-cited answers for auditability",
+      "FastAPI backend + React frontend",
     ],
+    github: "https://github.com/Bhawani-Lal/ai-document-intelligence",
     live: false,
+    liveLink: null,
   },
   {
-    id: "cnn",
+    id: "finrisk",
     num: "03",
-    title: "Real-Time Facial Recognition",
-    subtitle: "CNN",
-    desc: "Computer vision project detecting and recognising faces in real-time via CNN, processing live webcam input with TensorFlow.",
-    tech: ["Python", "OpenCV", "TensorFlow", "CNN"],
+    title: "Financial Risk Analytics Dashboard",
+    subtitle: "Data Science & Financial Analytics",
+    desc: "Real-time financial risk dashboard pulling live equity data via yfinance API. Implements rolling volatility analysis, asset correlation heatmap, and Value at Risk (VaR) at 95% confidence.",
+    tech: ["Python", "Streamlit", "Plotly", "Pandas", "yfinance"],
     detail:
-      "A computer vision project using Convolutional Neural Networks for real-time face detection and recognition from live webcam input — demonstrating practical deep learning in image-based recognition tasks.",
+      "Interactive financial risk dashboard covering 10 stocks with dynamic filtering by ticker and date range. Implements 30-day rolling volatility analysis, asset correlation heatmap, and Value at Risk (VaR) calculation at 95% confidence interval. End-to-end data pipeline with Pandas for cleaning and aggregation, Plotly for interactive visualisation — deployed live on Streamlit Cloud.",
     features: [
-      "Real-time face detection",
-      "CNN-based recognition model",
-      "Live webcam processing via OpenCV",
-      "End-to-end deep learning pipeline",
+      "Live equity data via yfinance API — 10 stocks",
+      "30-day rolling volatility analysis",
+      "Asset correlation heatmap",
+      "Value at Risk (VaR) at 95% confidence interval",
+      "Deployed live on Streamlit Cloud",
     ],
+    github: "https://github.com/Bhawani-Lal/financial-risk-analytics",
     live: false,
+    liveLink: "https://financial-risk-analytics-gnwpm6esocx32qmxwthtmn.streamlit.app/",
   },
   {
     id: "portfolio",
@@ -65,14 +74,17 @@ const PROJECTS = [
     desc: "Interactive personal portfolio built with React & Three.js — 3D hero section, animated stars, RGB cyberpunk aesthetic, and smooth scroll experience.",
     tech: ["React", "Three.js", "R3F", "CSS"],
     detail:
-      "Combines React with animated 3D elements via Three.js for an immersive, premium portfolio. Features a 3D hero section, animated star field, project showcases, skills, blogs, and contact — with a full cyberpunk RGB theme.",
+      "Combines React with animated 3D elements via Three.js for an immersive portfolio. Features a 3D hero section, animated star field, project showcases, skills, certifications, blogs, and contact — with a full cyberpunk RGB theme deployed on Vercel.",
     features: [
       "Interactive 3D hero with animated star field",
       "RGB cycling HUD aesthetic",
-      "Project modals with tech stack",
-      "Smooth scroll & active nav tracking",
+      "Project modals with tech stack details",
+      "Certifications and blogs sections",
+      "Deployed on Vercel with CI/CD via GitHub",
     ],
+    github: "https://github.com/Bhawani-Lal/3D-Portfolio",
     live: false,
+    liveLink: "https://3-d-portfolio-ten-jet.vercel.app/",
   },
 ];
 
@@ -116,7 +128,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "projects", "skills", "blogs", "contact"];
+      const sections = ["home", "projects", "skills", "certifications", "blogs", "contact"];
       let current = "home";
       sections.forEach((section) => {
         const element = document.getElementById(section);
@@ -190,7 +202,7 @@ export default function App() {
               />
             </div>
 
-           <div className="hero-buttons">
+            <div className="hero-buttons">
               <button
                 className="btn-primary"
                 onClick={() =>
@@ -207,7 +219,7 @@ export default function App() {
                 rel="noreferrer"
                 className="btn-secondary link-btn"
                 style={{ padding: "13px 26px" }}
-             >
+              >
                 Resume
               </a>
             </div>
@@ -262,7 +274,6 @@ export default function App() {
             <div key={p.id} className="elegant-card">
               <div className="card-corner-br" />
 
-              {/* Number row + live badge */}
               <div
                 style={{
                   display: "flex",
@@ -327,13 +338,24 @@ export default function App() {
                   Details
                 </button>
                 <a
-                  href="https://github.com/nirbhay29"
+                  href={p.github}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-secondary small link-btn"
                 >
                   GitHub ↗
                 </a>
+                {p.liveLink && (
+                  <a
+                    href={p.liveLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-primary small link-btn"
+                    style={{ fontSize: "8px" }}
+                  >
+                    Live Demo ↗
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -446,7 +468,7 @@ export default function App() {
               </div>
             </div>
 
-            <div style={{ marginTop: "26px", display: "flex", gap: "10px" }}>
+            <div style={{ marginTop: "26px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
               <button
                 className="btn-primary small"
                 onClick={() => setSelectedProject(null)}
@@ -454,13 +476,24 @@ export default function App() {
                 Close
               </button>
               <a
-                href="https://github.com/nirbhay29"
+                href={selectedProject.github}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-secondary small link-btn"
               >
                 GitHub ↗
               </a>
+              {selectedProject.liveLink && (
+                <a
+                  href={selectedProject.liveLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-primary small link-btn"
+                  style={{ fontSize: "8px" }}
+                >
+                  Live Demo ↗
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -468,155 +501,153 @@ export default function App() {
 
       {/* ── SKILLS ── */}
       <section id="skills" className="section elegant-section">
-  <div className="section-topline">02 / 04 — Technologies</div>
-  <h2 className="section-title">Skills</h2>
+        <div className="section-topline">02 / 04 — Technologies</div>
+        <h2 className="section-title">Skills</h2>
 
-  <div className="skills-categories">
+        <div className="skills-categories">
 
-    <div className="skill-category">
-      <div className="skill-cat-label">// Languages</div>
-      <div className="skills-grid">
-        {["Python", "JavaScript", "SQL", "R", "HTML", "CSS"].map((s) => (
-          <div key={s} className="skill-box">{s}</div>
-        ))}
-      </div>
-    </div>
+          <div className="skill-category">
+            <div className="skill-cat-label">// Languages</div>
+            <div className="skills-grid">
+              {["Python", "JavaScript", "SQL", "R", "HTML", "CSS"].map((s) => (
+                <div key={s} className="skill-box">{s}</div>
+              ))}
+            </div>
+          </div>
 
-    <div className="skill-category">
-      <div className="skill-cat-label">// Frameworks & Libraries</div>
-      <div className="skills-grid">
-        {["React", "TensorFlow", "OpenCV", "Three.js", "Node.js", "Spring Boot"].map((s) => (
-          <div key={s} className="skill-box">{s}</div>
-        ))}
-      </div>
-    </div>
+          <div className="skill-category">
+            <div className="skill-cat-label">// Frameworks & Libraries</div>
+            <div className="skills-grid">
+              {["React", "TensorFlow", "OpenCV", "Three.js", "Node.js", "Spring Boot"].map((s) => (
+                <div key={s} className="skill-box">{s}</div>
+              ))}
+            </div>
+          </div>
 
-    <div className="skill-category">
-      <div className="skill-cat-label">// ML / AI</div>
-      <div className="skills-grid">
-        {["LSTM", "Random Forest", "SHAP", "RAG", "CNN", "NLP"].map((s) => (
-          <div key={s} className="skill-box skill-box--accent">{s}</div>
-        ))}
-      </div>
-    </div>
+          <div className="skill-category">
+            <div className="skill-cat-label">// ML / AI</div>
+            <div className="skills-grid">
+              {["LSTM", "Random Forest", "SHAP", "RAG", "CNN", "NLP"].map((s) => (
+                <div key={s} className="skill-box skill-box--accent">{s}</div>
+              ))}
+            </div>
+          </div>
 
-    <div className="skill-category">
-      <div className="skill-cat-label">// Concepts & Tools</div>
-      <div className="skills-grid">
-        {["DSA", "Predictive Maintenance", "REST APIs", "Git", "Kafka", "JPA"].map((s) => (
-          <div key={s} className="skill-box">{s}</div>
-        ))}
-      </div>
-    </div>
+          <div className="skill-category">
+            <div className="skill-cat-label">// Concepts & Tools</div>
+            <div className="skills-grid">
+              {["DSA", "Predictive Maintenance", "REST APIs", "Git", "Kafka", "JPA"].map((s) => (
+                <div key={s} className="skill-box">{s}</div>
+              ))}
+            </div>
+          </div>
 
-  </div>
-</section>
+        </div>
+      </section>
 
-    
+      {/* ── CERTIFICATIONS ── */}
+      <section id="certifications" className="section elegant-section">
+        <div className="section-topline">03 / 04 — Achievements</div>
+        <h2 className="section-title">Certifications</h2>
 
-{/* ── CERTIFICATIONS ── */}
-<section id="certifications" className="section elegant-section">
-  <div className="section-topline">03 / 04 — Achievements</div>
-  <h2 className="section-title">Certifications</h2>
+        <div className="cert-grid">
 
-  <div className="cert-grid">
+          <div className="cert-card">
+            <div className="cert-card__top">
+              <span className="cert-issuer">JPMorgan Chase</span>
+              <span className="cert-badge cert-badge--live">Completed</span>
+            </div>
+            <h3 className="cert-title">Advanced Software Engineering</h3>
+            <p className="cert-sub">Forage Virtual Experience Program</p>
+            <p className="cert-desc">
+              Completed all 5 Midas Core tasks — Kafka event streaming, Spring Data JPA,
+              REST APIs, Spring MVC, and advanced engineering patterns. Certificate earned.
+            </p>
+            <div className="cert-tags">
+              {["Kafka", "Spring Boot", "REST", "JPA", "Spring MVC"].map((t) => (
+                <span key={t} className="tag-chip">{t}</span>
+              ))}
+            </div>
+          </div>
 
-    <div className="cert-card">
-      <div className="cert-card__top">
-        <span className="cert-issuer">JPMorgan Chase</span>
-        <span className="cert-badge cert-badge--live">Completed</span>
-      </div>
-      <h3 className="cert-title">Advanced Software Engineering</h3>
-      <p className="cert-sub">Forage Virtual Experience Program</p>
-      <p className="cert-desc">
-        Completed all 5 Midas Core tasks — Kafka event streaming, Spring Data JPA,
-        REST APIs, Spring MVC, and advanced engineering patterns. Certificate earned.
-      </p>
-      <div className="cert-tags">
-        {["Kafka", "Spring Boot", "REST", "JPA", "Spring MVC"].map((t) => (
-          <span key={t} className="tag-chip">{t}</span>
-        ))}
-      </div>
-    </div>
+          <div className="cert-card">
+            <div className="cert-card__top">
+              <span className="cert-issuer">Hewlett Packard Enterprise</span>
+              <span className="cert-badge cert-badge--live">Completed</span>
+            </div>
+            <h3 className="cert-title">Software Engineering</h3>
+            <p className="cert-sub">Forage Virtual Experience Program</p>
+            <p className="cert-desc">
+              Built a Spring Boot employee management REST API end-to-end, covering
+              design, implementation, and deployment patterns for enterprise systems.
+            </p>
+            <div className="cert-tags">
+              {["Spring Boot", "REST API", "Java"].map((t) => (
+                <span key={t} className="tag-chip">{t}</span>
+              ))}
+            </div>
+          </div>
 
-    <div className="cert-card">
-      <div className="cert-card__top">
-        <span className="cert-issuer">Hewlett Packard Enterprise</span>
-        <span className="cert-badge cert-badge--live">Completed</span>
-      </div>
-      <h3 className="cert-title">Software Engineering</h3>
-      <p className="cert-sub">Forage Virtual Experience Program</p>
-      <p className="cert-desc">
-        Built a Spring Boot employee management REST API end-to-end, covering
-        design, implementation, and deployment patterns for enterprise systems.
-      </p>
-      <div className="cert-tags">
-        {["Spring Boot", "REST API", "Java"].map((t) => (
-          <span key={t} className="tag-chip">{t}</span>
-        ))}
-      </div>
-    </div>
+          <div className="cert-card">
+            <div className="cert-card__top">
+              <span className="cert-issuer">Anthropic</span>
+              <span className="cert-badge cert-badge--live">Completed</span>
+            </div>
+            <h3 className="cert-title">Claude Platform 101</h3>
+            <p className="cert-sub">Anthropic Academy</p>
+            <p className="cert-desc">
+              Completed Anthropic's official Claude Platform course — prompt engineering,
+              API integration, and building AI-powered applications with Claude.
+            </p>
+            <div className="cert-tags">
+              {["Claude API", "Prompt Engineering", "AI"].map((t) => (
+                <span key={t} className="tag-chip">{t}</span>
+              ))}
+            </div>
+          </div>
 
-    <div className="cert-card">
-      <div className="cert-card__top">
-        <span className="cert-issuer">Anthropic</span>
-        <span className="cert-badge cert-badge--live">Completed</span>
-      </div>
-      <h3 className="cert-title">Claude Platform 101</h3>
-      <p className="cert-sub">Anthropic Academy</p>
-      <p className="cert-desc">
-        Completed Anthropic's official Claude Platform course — prompt engineering,
-        API integration, and building AI-powered applications with Claude.
-      </p>
-      <div className="cert-tags">
-        {["Claude API", "Prompt Engineering", "AI"].map((t) => (
-          <span key={t} className="tag-chip">{t}</span>
-        ))}
-      </div>
-    </div>
+          <div className="cert-card">
+            <div className="cert-card__top">
+              <span className="cert-issuer">Anthropic</span>
+              <span className="cert-badge cert-badge--live">Completed</span>
+            </div>
+            <h3 className="cert-title">AI Fluency</h3>
+            <p className="cert-sub">Anthropic Academy</p>
+            <p className="cert-desc">
+              Completed Anthropic's AI Fluency certification — understanding large language
+              models, responsible AI use, and practical AI integration strategies.
+            </p>
+            <div className="cert-tags">
+              {["LLMs", "AI Ethics", "Responsible AI"].map((t) => (
+                <span key={t} className="tag-chip">{t}</span>
+              ))}
+            </div>
+          </div>
 
-    <div className="cert-card">
-      <div className="cert-card__top">
-        <span className="cert-issuer">Anthropic</span>
-        <span className="cert-badge cert-badge--live">Completed</span>
-      </div>
-      <h3 className="cert-title">AI Fluency</h3>
-      <p className="cert-sub">Anthropic Academy</p>
-      <p className="cert-desc">
-        Completed Anthropic's AI Fluency certification — understanding large language
-        models, responsible AI use, and practical AI integration strategies.
-      </p>
-      <div className="cert-tags">
-        {["LLMs", "AI Ethics", "Responsible AI"].map((t) => (
-          <span key={t} className="tag-chip">{t}</span>
-        ))}
-      </div>
-    </div>
+          <div className="cert-card">
+            <div className="cert-card__top">
+              <span className="cert-issuer">Google / Coursera</span>
+              <span className="cert-badge">In Progress</span>
+            </div>
+            <h3 className="cert-title">Data Analytics</h3>
+            <p className="cert-sub">Google Data Analytics Certificate</p>
+            <p className="cert-desc">
+              Completed Course 1 of the Google Data Analytics professional certificate,
+              covering foundations of data, analytical thinking, and the data lifecycle.
+            </p>
+            <div className="cert-tags">
+              {["Data Analysis", "Analytics", "Google"].map((t) => (
+                <span key={t} className="tag-chip">{t}</span>
+              ))}
+            </div>
+          </div>
 
-    <div className="cert-card">
-      <div className="cert-card__top">
-        <span className="cert-issuer">Google / Coursera</span>
-        <span className="cert-badge">In Progress</span>
-      </div>
-      <h3 className="cert-title">Data Analytics</h3>
-      <p className="cert-sub">Google Data Analytics Certificate</p>
-      <p className="cert-desc">
-        Completed Course 1 of the Google Data Analytics professional certificate,
-        covering foundations of data, analytical thinking, and the data lifecycle.
-      </p>
-      <div className="cert-tags">
-        {["Data Analysis", "Analytics", "Google"].map((t) => (
-          <span key={t} className="tag-chip">{t}</span>
-        ))}
-      </div>
-    </div>
-
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* ── BLOGS ── */}
       <section id="blogs" className="section elegant-section">
-        <div className="section-topline">03 / 04 — Writing</div>
+        <div className="section-topline">04 / 05 — Writing</div>
         <h2 className="section-title">
           Thoughts &amp;
           <br />
@@ -674,7 +705,7 @@ export default function App() {
 
       {/* ── CONTACT ── */}
       <section id="contact" className="section elegant-section contact-section">
-        <div className="section-topline">04 / 04 — Get in Touch</div>
+        <div className="section-topline">05 / 05 — Get in Touch</div>
         <div className="contact-grid">
           <div>
             <h2 className="section-title">
@@ -697,7 +728,7 @@ export default function App() {
               </a>
               <div className="contact-row">
                 <a
-                  href="https://github.com/nirbhay29"
+                  href="https://github.com/Bhawani-Lal"
                   target="_blank"
                   rel="noreferrer"
                   className="btn-secondary contact-btn link-btn"
