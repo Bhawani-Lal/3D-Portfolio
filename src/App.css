@@ -308,6 +308,7 @@ h1, h2, h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .scroll-label {

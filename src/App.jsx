@@ -206,6 +206,7 @@ export default function App() {
                 target="_blank"
                 rel="noreferrer"
                 className="btn-secondary link-btn"
+                style={{ padding: "13px 26px" }}
              >
                 Resume
               </a>
