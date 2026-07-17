@@ -1,4 +1,3 @@
-import { Canvas } from "@react-three/fiber";
 import { useState, useEffect } from "react";
 import { OrbitControls, Stars } from "@react-three/drei";
 import "./App.css";
@@ -191,7 +190,7 @@ export default function App() {
               />
             </div>
 
-            <div className="hero-buttons">
+           <div className="hero-buttons">
               <button
                 className="btn-primary"
                 onClick={() =>
@@ -202,7 +201,14 @@ export default function App() {
               >
                 View My Work
               </button>
-              <button className="btn-secondary">Resume</button>
+              <a
+                href="/Bhawani_lal_CV.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary link-btn"
+             >
+                Resume
+              </a>
             </div>
 
             <div className="scroll-label">Scroll ↓</div>
