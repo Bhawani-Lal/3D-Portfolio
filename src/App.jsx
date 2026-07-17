@@ -1,9 +1,9 @@
+import { Canvas } from "@react-three/fiber";
 import { useState, useEffect } from "react";
 import { OrbitControls, Stars } from "@react-three/drei";
 import "./App.css";
 import { TypeAnimation } from "react-type-animation";
 import avatar from "./assets/avatar.png";
-
 const PROJECTS = [
   {
     id: "smartmaintain",
