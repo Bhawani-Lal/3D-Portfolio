@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { OrbitControls, Stars } from "@react-three/drei";
 import "./App.css";
 import { TypeAnimation } from "react-type-animation";
@@ -129,6 +129,72 @@ const BLOGS = [
   },
 ];
 
+const STATS = [
+  { value: 99.2, decimals: 1, suffix: "%", label: "ScanGuard test accuracy" },
+  { value: 95.7, decimals: 1, suffix: "%", label: "SmartMaintain failure classification" },
+  { value: 4, decimals: 0, suffix: "", label: "Projects shipped" },
+  { value: 60, decimals: 0, suffix: "+", label: "LeetCode problems solved" },
+];
+
+function CountUp({ value, decimals = 0, suffix = "" }) {
+  const ref = useRef(null);
+  const [display, setDisplay] = useState((0).toFixed(decimals));
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setDisplay(value.toFixed(decimals));
+      return;
+    }
+    let raf;
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const duration = 1600;
+      const tick = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        setDisplay((value * eased).toFixed(decimals));
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+  }, [value, decimals]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
+}
+
+// Soft 3D tilt + cursor glow for the front project card
+const canTilt = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(hover: hover)").matches &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function handleTilt(e) {
+  if (!canTilt()) return;
+  const el = e.currentTarget;
+  const r = el.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width;
+  const y = (e.clientY - r.top) / r.height;
+  el.style.setProperty("--ry", `${(x - 0.5) * 6}deg`);
+  el.style.setProperty("--rx", `${(0.5 - y) * 5}deg`);
+  el.style.setProperty("--mx", `${x * 100}%`);
+  el.style.setProperty("--my", `${y * 100}%`);
+  el.dataset.tilt = "1";
+}
+
+function resetTilt(e) {
+  const el = e.currentTarget;
+  el.style.setProperty("--ry", "0deg");
+  el.style.setProperty("--rx", "0deg");
+  el.dataset.tilt = "0";
+}
+
 export default function App() {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [activeSection, setActiveSection] = useState("home");
@@ -200,6 +266,11 @@ export default function App() {
 
       {/* ── HERO ── */}
       <section id="home" className="section hero-section">
+        <div className="hero-aurora" aria-hidden="true">
+          <span className="blob blob-a" />
+          <span className="blob blob-b" />
+          <span className="blob blob-c" />
+        </div>
         <nav className="top-nav">
           <div className="brand-mark">Bhawani Lal</div>
           <div className="nav-links">
@@ -221,8 +292,17 @@ export default function App() {
           <div className="hero-left">
             <p className="hero-kicker">Open to 2027 graduate roles · Glasgow, UK</p>
 
-            <h1 className="hero-title">
-              Bhawani Lal
+            <h1 className="hero-title" aria-label="Bhawani Lal">
+              {"Bhawani Lal".split("").map((ch, i) => (
+                <span
+                  key={i}
+                  className="hero-letter"
+                  aria-hidden="true"
+                  style={{ animationDelay: `${0.25 + i * 0.045}s` }}
+                >
+                  {ch === " " ? "\u00A0" : ch}
+                </span>
+              ))}
             </h1>
 
             <p className="hero-summary">
@@ -276,7 +356,16 @@ export default function App() {
               </a>
             </div>
 
-            <div className="scroll-label">Scroll ↓</div>
+            <div className="hero-stats">
+              {STATS.map((st) => (
+                <div key={st.label} className="hero-stat">
+                  <div className="hero-stat-value">
+                    <CountUp value={st.value} decimals={st.decimals} suffix={st.suffix} />
+                  </div>
+                  <div className="hero-stat-label">{st.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="hero-right">
@@ -336,6 +425,8 @@ export default function App() {
                   className={`stack-card pos-${Math.min(pos, 4)}`}
                   style={{ zIndex: nProjects - pos }}
                   onClick={() => pos !== 0 && setActiveProject(i)}
+                  onMouseMove={pos === 0 ? handleTilt : undefined}
+                  onMouseLeave={resetTilt}
                   aria-hidden={pos !== 0}
                 >
                   <div className="stack-inner">
