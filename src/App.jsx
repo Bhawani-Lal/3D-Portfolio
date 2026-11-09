@@ -7,83 +7,103 @@ import avatar from "./assets/avatar.png";
 
 const PROJECTS = [
   {
-    id: "smartmaintain",
+    id: "scanguard",
     num: "01",
-    title: "SmartMaintain",
-    subtitle: "Predictive Maintenance System",
-    desc: "MSc dissertation: LSTM + Random Forest hybrid on NASA C-MAPSS for turbofan engine RUL prediction, with SHAP explainability and a RAG-powered Copilot layer.",
-    tech: ["Python", "LSTM", "Random Forest", "SHAP", "NASA C-MAPSS", "RAG"],
+    title: "ScanGuard",
+    subtitle: "AI Quality Inspection · Computer Vision",
+    desc: "Computer vision system that inspects industrial metal castings and flags defects. ResNet18 transfer learning with a decision threshold tuned to halve missed defects, served through Streamlit, FastAPI and Docker.",
+    tech: ["Python", "PyTorch", "ResNet18", "FastAPI", "Streamlit", "Docker"],
     detail:
-      "Dissertation project building a predictive maintenance system for industrial turbofan engines. A hybrid LSTM + Random Forest architecture trained on NASA C-MAPSS FD001 to predict Remaining Useful Life (RUL), achieving MAE of 12.76 and RMSE of 16.21. SHAP analysis identifies top predictive sensors. SmartMaintain Copilot (RAG + function calling) enables natural language querying of maintenance insights.",
+      "End-to-end inspection system trained on 7,348 real casting images. A pretrained ResNet18 with a new 2-class output layer was trained in PyTorch. Because a missed defect is the costly error in inspection, the decision threshold was tuned on a held-out validation set (never the test set), cutting missed defects from 8 to 4 on 715 unseen test images. The model is served through a Streamlit inspection app with a manual-review band and a FastAPI service with input validation, packaged in a Docker container.",
     features: [
-      "Hybrid LSTM + Random Forest RUL prediction",
-      "NASA C-MAPSS turbofan engine dataset",
-      "SHAP analysis — top sensors: mean_s3, mean_s21, last_s11",
-      "SmartMaintain Copilot — RAG + function calling",
-      "MAE: 12.76 | RMSE: 16.21",
+      "99.2% test accuracy · 99.6% precision · 99.1% recall",
+      "Threshold tuned on validation data: missed defects halved (8 → 4)",
+      "Rejects non-casting images (HTTP 422) instead of guessing",
+      "Streamlit app with a manual-review band for borderline cases",
+      "FastAPI REST endpoint, containerised with Docker",
+    ],
+    github: "https://github.com/Bhawani-Lal/scanguard",
+    badge: "Completed",
+    liveLink: null,
+  },
+  {
+    id: "smartmaintain",
+    num: "02",
+    title: "SmartMaintain",
+    subtitle: "Predictive Maintenance · MSc Dissertation",
+    desc: "MSc dissertation: predictive maintenance on NASA C-MAPSS jet-engine sensor data, combining LSTM remaining-useful-life prediction with Random Forest failure classification and SHAP explainability.",
+    tech: ["Python", "LSTM", "Random Forest", "SHAP", "scikit-learn", "NASA C-MAPSS"],
+    detail:
+      "Predictive maintenance for turbofan engines using NASA C-MAPSS data: 21 sensors, 3 operating settings and 51 engineered features, with engine-level splits to avoid leakage. An LSTM (128/64 units) predicts Remaining Useful Life with MAE 11.01 and RMSE 14.85 cycles, and a Random Forest classifies engines nearing failure at 95.7% accuracy (F1 0.868). SHAP identifies the most influential sensors, and the results feed a four-status maintenance decision framework.",
+    features: [
+      "LSTM RUL prediction: MAE 11.01 · RMSE 14.85 cycles",
+      "Random Forest failure classification: 95.7% accuracy, F1 0.868",
+      "51 engineered features with engine-level splits",
+      "SHAP: top sensors mean_s3, mean_s21, last_s11",
+      "Four-status maintenance decision framework",
     ],
     github: "https://github.com/Bhawani-Lal/Smartmaintain_Dissertation",
-    live: true,
+    badge: "MSc Dissertation",
     liveLink: null,
   },
   {
     id: "aidoc",
-    num: "02",
+    num: "03",
     title: "AI Document Intelligence Tool",
     subtitle: "RAG & Generative AI",
-    desc: "RAG-powered document Q&A system that ingests business documents and enables natural language querying with answers cited to the source. Built with Claude API, LangChain, FastAPI, and React.",
-    tech: ["Python", "Claude API", "LangChain", "RAG", "FastAPI"],
+    desc: "RAG-powered document Q&A system that ingests business documents and answers questions in plain English, citing the source passage. Built with the Claude API, LangChain, FastAPI and React.",
+    tech: ["Python", "Claude API", "LangChain", "RAG", "FastAPI", "React"],
     detail:
-      "RAG-powered tool that ingests business documents (PDFs, reports) and enables natural language Q&A with source citations. Implements semantic chunking, vector embeddings, and retrieval-augmented generation using Claude API. FastAPI backend with React frontend for document upload, query, and structured insight extraction — targeting McKinsey Digital-style document intelligence workflows.",
+      "A tool that ingests business documents (PDFs, reports) and answers natural-language questions with citations to the source passage. It uses document chunking, vector embeddings and retrieval-augmented generation with the Claude API and LangChain, with a FastAPI backend and a React frontend for upload and querying. Currently in development.",
     features: [
-      "Document ingestion — PDF and report parsing",
-      "Semantic chunking and vector embeddings",
-      "RAG pipeline using Claude API + LangChain",
-      "Source-cited answers for auditability",
-      "FastAPI backend + React frontend",
+      "Document ingestion: PDF and report parsing",
+      "Chunking and vector embeddings for semantic search",
+      "RAG pipeline using the Claude API and LangChain",
+      "Answers cited to the source passage",
+      "FastAPI backend and React frontend",
     ],
     github: "https://github.com/Bhawani-Lal/ai-document-intelligence",
-    live: false,
+    badge: "In Progress",
     liveLink: null,
   },
   {
     id: "finrisk",
-    num: "03",
+    num: "04",
     title: "Financial Risk Analytics Dashboard",
     subtitle: "Data Science & Financial Analytics",
-    desc: "Real-time financial risk dashboard pulling live equity data via yfinance API. Implements rolling volatility analysis, asset correlation heatmap, and Value at Risk (VaR) at 95% confidence.",
+    desc: "Interactive risk dashboard pulling equity data with yfinance: rolling volatility, an asset correlation heatmap and 95% historical Value at Risk, deployed on Streamlit Cloud.",
     tech: ["Python", "Streamlit", "Plotly", "Pandas", "yfinance"],
     detail:
-      "Interactive financial risk dashboard covering 10 stocks with dynamic filtering by ticker and date range. Implements 30-day rolling volatility analysis, asset correlation heatmap, and Value at Risk (VaR) calculation at 95% confidence interval. End-to-end data pipeline with Pandas for cleaning and aggregation, Plotly for interactive visualisation — deployed live on Streamlit Cloud.",
+      "Interactive financial risk dashboard covering 10 stocks with filtering by ticker and date range. It computes 30-day rolling annualised volatility, a correlation heatmap and 95% historical Value at Risk, chosen over parametric VaR so the estimate reflects real fat-tailed returns. Pandas handles the data pipeline and Plotly the interactive charts, deployed on Streamlit Cloud.",
     features: [
-      "Live equity data via yfinance API — 10 stocks",
+      "Equity data via yfinance: 10 stocks",
       "30-day rolling volatility analysis",
       "Asset correlation heatmap",
-      "Value at Risk (VaR) at 95% confidence interval",
-      "Deployed live on Streamlit Cloud",
+      "95% historical Value at Risk",
+      "Deployed on Streamlit Cloud",
     ],
     github: "https://github.com/Bhawani-Lal/financial-risk-analytics",
-    live: false,
+    badge: "Live",
     liveLink: "https://financial-risk-analytics-gnwpm6esocx32qmxwthtmn.streamlit.app/",
   },
   {
     id: "portfolio",
-    num: "04",
+    num: "05",
     title: "3D Portfolio Website",
-    subtitle: null,
-    desc: "Interactive personal portfolio built with React & Three.js — 3D hero section, animated stars, RGB cyberpunk aesthetic, and smooth scroll experience.",
+    subtitle: "React · Three.js",
+    desc: "This site: a React and Three.js portfolio with a 3D star-field hero, RGB cyberpunk styling and project and blog modals, deployed on Vercel.",
     tech: ["React", "Three.js", "R3F", "CSS"],
     detail:
-      "Combines React with animated 3D elements via Three.js for an immersive portfolio. Features a 3D hero section, animated star field, project showcases, skills, certifications, blogs, and contact — with a full cyberpunk RGB theme deployed on Vercel.",
+      "Combines React with animated 3D elements through React Three Fiber. Features a 3D hero section, animated star field, project showcases, skills, certifications, blogs and contact, with a cyberpunk RGB theme deployed on Vercel.",
     features: [
       "Interactive 3D hero with animated star field",
       "RGB cycling HUD aesthetic",
       "Project modals with tech stack details",
       "Certifications and blogs sections",
-      "Deployed on Vercel with CI/CD via GitHub",
+      "Deployed on Vercel from GitHub",
     ],
     github: "https://github.com/Bhawani-Lal/3D-Portfolio",
-    live: false,
+    badge: null,
     liveLink: "https://3-d-portfolio-ten-jet.vercel.app/",
   },
 ];
@@ -113,6 +133,37 @@ export default function App() {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeProject, setActiveProject] = useState(0);
+  const [stackPaused, setStackPaused] = useState(false);
+
+  const nProjects = PROJECTS.length;
+  const nextProject = () => setActiveProject((i) => (i + 1) % nProjects);
+  const prevProject = () => setActiveProject((i) => (i - 1 + nProjects) % nProjects);
+
+  // Auto-advance the project stack (pauses on hover or when a modal is open)
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || stackPaused || selectedProject) return;
+    const t = setTimeout(() => setActiveProject((i) => (i + 1) % nProjects), 6000);
+    return () => clearTimeout(t);
+  }, [activeProject, stackPaused, selectedProject, nProjects]);
+
+  // Reveal sections as they scroll into view
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in-view");
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.12 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const glow = document.getElementById("cursor-glow");
@@ -150,7 +201,7 @@ export default function App() {
       {/* ── HERO ── */}
       <section id="home" className="section hero-section">
         <nav className="top-nav">
-          <div className="brand-mark">BL_SYS</div>
+          <div className="brand-mark">Bhawani Lal</div>
           <div className="nav-links">
             {navItems.map((item) => (
               <a
@@ -168,36 +219,37 @@ export default function App() {
 
         <div className="hero-content">
           <div className="hero-left">
-            <p className="hero-kicker">Available for opportunities</p>
+            <p className="hero-kicker">Open to 2027 graduate roles · Glasgow, UK</p>
 
             <h1 className="hero-title">
-              BHAWANI
-              <br />
-              LAL
+              Bhawani Lal
             </h1>
+
+            <p className="hero-summary">
+              MSc Advanced Computer Science with Data Science at the University of
+              Strathclyde. I build machine learning systems end to end, from data
+              and models to tested, deployed APIs.
+            </p>
 
             <div className="hero-subtext">
               <span className="hero-line" />
               <TypeAnimation
                 sequence={[
-                  "MSc Advanced CS & Data Science",
-                  1600,
-                  "AI & ML Researcher",
+                  "Machine Learning Engineer",
                   1400,
-                  "Predictive Maintenance Engineer",
+                  "Computer Vision · Predictive Maintenance",
                   1600,
-                  "3D Portfolio Builder",
-                  1400,
-                  "Full Stack Developer",
+                  "Driverless Software · Strathclyde Motorsport",
+                  1600,
+                  "Python · PyTorch · FastAPI · Docker",
                   1400,
                 ]}
                 speed={55}
                 repeat={Infinity}
                 style={{
-                  fontFamily: "'Share Tech Mono', monospace",
-                  fontSize: "13px",
-                  letterSpacing: "0.04em",
-                  color: "rgba(200,216,232,0.5)",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "15px",
+                  color: "#a6b0c3",
                 }}
               />
             </div>
@@ -211,7 +263,7 @@ export default function App() {
                     .scrollIntoView({ behavior: "smooth" })
                 }
               >
-                View My Work
+                View my work
               </button>
               <a
                 href="/Bhawani_lal_CV.pdf"
@@ -220,7 +272,7 @@ export default function App() {
                 className="btn-secondary link-btn"
                 style={{ padding: "13px 26px" }}
               >
-                Resume
+                Download CV
               </a>
             </div>
 
@@ -234,8 +286,8 @@ export default function App() {
                 <div className="scan-overlay" />
               </div>
               <div className="avatar-tag">
-                <span className="avatar-tag-title">MSc Student</span>
-                <span className="avatar-tag-sub">Strathclyde University</span>
+                <span className="avatar-tag-title">MSc Data Science</span>
+                <span className="avatar-tag-sub">University of Strathclyde</span>
               </div>
             </div>
           </div>
@@ -248,117 +300,105 @@ export default function App() {
           <Stars
             radius={100}
             depth={50}
-            count={6000}
-            factor={4}
+            count={2500}
+            factor={3}
             saturation={0}
             fade
-            speed={0.8}
+            speed={0.4}
           />
         </Canvas>
       </section>
 
       {/* ── PROJECTS ── */}
       <section id="projects" className="section elegant-section">
-        <div className="section-topline">01 / 04 — Selected Work</div>
-        <div className="section-header split-header">
+        <div className="section-topline">01 — Selected work</div>
+        <div className="section-header split-header reveal">
           <h2 className="section-title">Projects</h2>
           <p className="section-description right-align">
-            Research, builds &amp; live
-            <br />
-            engineering projects
+            From MSc research to tested,
+            deployed tools.
           </p>
         </div>
 
-        <div className="projects-grid">
-          {PROJECTS.map((p) => (
-            <div key={p.id} className="elegant-card">
-              <div className="card-corner-br" />
-
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  marginBottom: "16px",
-                }}
-              >
-                <div className="card-number">{p.num} //</div>
-                {p.live && (
-                  <span
-                    style={{
-                      fontFamily: "'Share Tech Mono', monospace",
-                      fontSize: "8px",
-                      letterSpacing: "0.16em",
-                      textTransform: "uppercase",
-                      color: "#00ff88",
-                      border: "1px solid rgba(0,255,136,0.3)",
-                      padding: "2px 9px",
-                      background: "rgba(0,255,136,0.06)",
-                      animation: "pulse 1.6s ease-in-out infinite",
-                    }}
-                  >
-                    Live Research
-                  </span>
-                )}
-              </div>
-
-              <h3 className="card-title">{p.title}</h3>
-
-              {p.subtitle && (
-                <p
-                  style={{
-                    fontFamily: "'Share Tech Mono', monospace",
-                    fontSize: "9px",
-                    letterSpacing: "0.14em",
-                    color: "rgba(0,136,255,0.55)",
-                    textTransform: "uppercase",
-                    marginBottom: "10px",
-                    marginTop: "-6px",
-                  }}
+        <div className="reveal">
+        <div
+          className={`stack-wrap ${stackPaused ? "paused" : ""}`}
+          onMouseEnter={() => setStackPaused(true)}
+          onMouseLeave={() => setStackPaused(false)}
+        >
+          <div className="stack">
+            {PROJECTS.map((p, i) => {
+              const pos = (i - activeProject + nProjects) % nProjects;
+              const inProgress = p.badge === "In Progress";
+              return (
+                <article
+                  key={p.id}
+                  className={`stack-card pos-${Math.min(pos, 4)}`}
+                  style={{ zIndex: nProjects - pos }}
+                  onClick={() => pos !== 0 && setActiveProject(i)}
+                  aria-hidden={pos !== 0}
                 >
-                  {p.subtitle}
-                </p>
-              )}
+                  <div className="stack-inner">
+                    <div className="stack-main">
+                      <div className="stack-head">
+                        <span className="card-number">{p.num} / {String(nProjects).padStart(2, "0")}</span>
+                        {p.badge && (
+                          <span className={`stack-badge ${inProgress ? "amber" : ""}`}>{p.badge}</span>
+                        )}
+                      </div>
+                      <h3 className="stack-title">{p.title}</h3>
+                      {p.subtitle && <p className="stack-sub">{p.subtitle}</p>}
+                      <p className="card-text">{p.desc}</p>
+                      <div className="tag-wrap">
+                        {p.tech.map((t) => (
+                          <span key={t} className="tag-chip">{t}</span>
+                        ))}
+                      </div>
+                      <div className="card-actions">
+                        <button className="btn-primary small" onClick={() => setSelectedProject(p)} tabIndex={pos === 0 ? 0 : -1}>
+                          Details
+                        </button>
+                        <a href={p.github} target="_blank" rel="noreferrer" className="btn-secondary small link-btn" tabIndex={pos === 0 ? 0 : -1}>
+                          GitHub ↗
+                        </a>
+                        {p.liveLink && (
+                          <a href={p.liveLink} target="_blank" rel="noreferrer" className="btn-primary small link-btn" tabIndex={pos === 0 ? 0 : -1}>
+                            Live Demo ↗
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <div className="stack-results">
+                      <h4>Key results</h4>
+                      <ul>
+                        {p.features.map((f) => (
+                          <li key={f}><span>→</span>{f}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  {pos === 0 && <div key={activeProject} className="stack-progress" />}
+                </article>
+              );
+            })}
+          </div>
 
-              <p className="card-text">{p.desc}</p>
-
-              <div className="tag-wrap">
-                {p.tech.map((t) => (
-                  <span key={t} className="tag-chip">
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              <div className="card-actions">
+          <div className="stack-controls">
+            <button className="stack-arrow" onClick={prevProject} aria-label="Previous project">←</button>
+            <div className="stack-tabs">
+              {PROJECTS.map((p, i) => (
                 <button
-                  className="btn-primary small"
-                  onClick={() => setSelectedProject(p)}
+                  key={p.id}
+                  className={`stack-tab ${i === activeProject ? "active" : ""}`}
+                  onClick={() => setActiveProject(i)}
                 >
-                  Details
+                  {p.num} {p.title}
                 </button>
-                <a
-                  href={p.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary small link-btn"
-                >
-                  GitHub ↗
-                </a>
-                {p.liveLink && (
-                  <a
-                    href={p.liveLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-primary small link-btn"
-                    style={{ fontSize: "8px" }}
-                  >
-                    Live Demo ↗
-                  </a>
-                )}
-              </div>
+              ))}
             </div>
-          ))}
+            <button className="stack-arrow" onClick={nextProject} aria-label="Next project">→</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -367,7 +407,7 @@ export default function App() {
         <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
 
-            {selectedProject.live && (
+            {selectedProject.badge && (
               <div
                 style={{
                   display: "inline-flex",
@@ -381,7 +421,7 @@ export default function App() {
                     width: "5px",
                     height: "5px",
                     borderRadius: "50%",
-                    background: "#00ff88",
+                    background: selectedProject.badge === "In Progress" ? "#f5b545" : "#3ecf9b",
                     animation: "pulse 1.4s ease-in-out infinite",
                     display: "inline-block",
                     flexShrink: 0,
@@ -389,14 +429,12 @@ export default function App() {
                 />
                 <span
                   style={{
-                    fontFamily: "'Share Tech Mono', monospace",
-                    fontSize: "8px",
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "#00ff88",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    color: selectedProject.badge === "In Progress" ? "#f5b545" : "#3ecf9b",
                   }}
                 >
-                  Live Research — MSc Dissertation
+                  {selectedProject.badge}
                 </span>
               </div>
             )}
@@ -406,13 +444,11 @@ export default function App() {
             {selectedProject.subtitle && (
               <p
                 style={{
-                  fontFamily: "'Share Tech Mono', monospace",
-                  fontSize: "9px",
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: "rgba(0,136,255,0.55)",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  color: "#5b8cff",
                   marginBottom: "16px",
-                  marginTop: "-10px",
+                  marginTop: "-6px",
                 }}
               >
                 {selectedProject.subtitle}
@@ -422,7 +458,7 @@ export default function App() {
             <p className="modal-text">{selectedProject.detail}</p>
 
             <div className="modal-block">
-              <h4>// Key Features</h4>
+              <h4>Key results</h4>
               {selectedProject.features.map((f) => (
                 <div
                   key={f}
@@ -435,20 +471,18 @@ export default function App() {
                 >
                   <span
                     style={{
-                      fontFamily: "'Share Tech Mono', monospace",
-                      color: "#00ff88",
+                      color: "#3ecf9b",
                       flexShrink: 0,
-                      fontSize: "11px",
+                      fontWeight: 700,
                     }}
                   >
                     →
                   </span>
                   <span
                     style={{
-                      color: "rgba(200,216,232,0.5)",
-                      fontSize: "13px",
-                      lineHeight: "1.7",
-                      fontFamily: "'Rajdhani', sans-serif",
+                      color: "#a6b0c3",
+                      fontSize: "15px",
+                      lineHeight: "1.6",
                     }}
                   >
                     {f}
@@ -458,7 +492,7 @@ export default function App() {
             </div>
 
             <div className="modal-block">
-              <h4>// Tech Stack</h4>
+              <h4>Tech stack</h4>
               <div className="tag-wrap">
                 {selectedProject.tech.map((t) => (
                   <span key={t} className="tag-chip">
@@ -501,42 +535,42 @@ export default function App() {
 
       {/* ── SKILLS ── */}
       <section id="skills" className="section elegant-section">
-        <div className="section-topline">02 / 04 — Technologies</div>
-        <h2 className="section-title">Skills</h2>
+        <div className="section-topline">02 — Technologies</div>
+        <h2 className="section-title reveal">Skills</h2>
 
         <div className="skills-categories">
 
-          <div className="skill-category">
-            <div className="skill-cat-label">// Languages</div>
+          <div className="skill-category reveal">
+            <div className="skill-cat-label">Languages</div>
             <div className="skills-grid">
-              {["Python", "JavaScript", "SQL", "R", "HTML", "CSS"].map((s) => (
+              {["Python", "Java", "SQL", "JavaScript", "R", "HTML", "CSS"].map((s) => (
                 <div key={s} className="skill-box">{s}</div>
               ))}
             </div>
           </div>
 
-          <div className="skill-category">
-            <div className="skill-cat-label">// Frameworks & Libraries</div>
+          <div className="skill-category reveal">
+            <div className="skill-cat-label">Frameworks & Libraries</div>
             <div className="skills-grid">
-              {["React", "TensorFlow", "OpenCV", "Three.js", "Node.js", "Spring Boot"].map((s) => (
+              {["PyTorch", "TensorFlow", "scikit-learn", "OpenCV", "FastAPI", "Streamlit", "React", "Three.js", "Node.js", "Spring Boot"].map((s) => (
                 <div key={s} className="skill-box">{s}</div>
               ))}
             </div>
           </div>
 
-          <div className="skill-category">
-            <div className="skill-cat-label">// ML / AI</div>
+          <div className="skill-category reveal">
+            <div className="skill-cat-label">Machine Learning & AI</div>
             <div className="skills-grid">
-              {["LSTM", "Random Forest", "SHAP", "RAG", "CNN", "NLP"].map((s) => (
+              {["Computer Vision", "Transfer Learning", "CNN", "LSTM", "Random Forest", "SHAP", "RAG", "NLP"].map((s) => (
                 <div key={s} className="skill-box skill-box--accent">{s}</div>
               ))}
             </div>
           </div>
 
-          <div className="skill-category">
-            <div className="skill-cat-label">// Concepts & Tools</div>
+          <div className="skill-category reveal">
+            <div className="skill-cat-label">Tools & Concepts</div>
             <div className="skills-grid">
-              {["DSA", "Predictive Maintenance", "REST APIs", "Git", "Kafka", "JPA"].map((s) => (
+              {["Docker", "REST APIs", "Git", "GitLab", "DSA", "Predictive Maintenance", "Kafka", "JPA"].map((s) => (
                 <div key={s} className="skill-box">{s}</div>
               ))}
             </div>
@@ -547,12 +581,12 @@ export default function App() {
 
       {/* ── CERTIFICATIONS ── */}
       <section id="certifications" className="section elegant-section">
-        <div className="section-topline">03 / 04 — Achievements</div>
-        <h2 className="section-title">Certifications</h2>
+        <div className="section-topline">03 — Achievements</div>
+        <h2 className="section-title reveal">Certifications</h2>
 
         <div className="cert-grid">
 
-          <div className="cert-card">
+          <div className="cert-card reveal">
             <div className="cert-card__top">
               <span className="cert-issuer">JPMorgan Chase</span>
               <span className="cert-badge cert-badge--live">Completed</span>
@@ -570,7 +604,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="cert-card">
+          <div className="cert-card reveal">
             <div className="cert-card__top">
               <span className="cert-issuer">Hewlett Packard Enterprise</span>
               <span className="cert-badge cert-badge--live">Completed</span>
@@ -588,7 +622,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="cert-card">
+          <div className="cert-card reveal">
             <div className="cert-card__top">
               <span className="cert-issuer">Anthropic</span>
               <span className="cert-badge cert-badge--live">Completed</span>
@@ -606,7 +640,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="cert-card">
+          <div className="cert-card reveal">
             <div className="cert-card__top">
               <span className="cert-issuer">Anthropic</span>
               <span className="cert-badge cert-badge--live">Completed</span>
@@ -624,7 +658,43 @@ export default function App() {
             </div>
           </div>
 
-          <div className="cert-card">
+          <div className="cert-card reveal">
+            <div className="cert-card__top">
+              <span className="cert-issuer">Anthropic</span>
+              <span className="cert-badge cert-badge--live">Completed</span>
+            </div>
+            <h3 className="cert-title">Building with the Claude API</h3>
+            <p className="cert-sub">Anthropic Academy</p>
+            <p className="cert-desc">
+              Building applications on the Claude API: messages, tool use,
+              retrieval and structuring outputs for real products.
+            </p>
+            <div className="cert-tags">
+              {["Claude API", "Tool Use", "RAG"].map((t) => (
+                <span key={t} className="tag-chip">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="cert-card reveal">
+            <div className="cert-card__top">
+              <span className="cert-issuer">IBM</span>
+              <span className="cert-badge cert-badge--live">Completed</span>
+            </div>
+            <h3 className="cert-title">Python for Data Science, AI &amp; Development</h3>
+            <p className="cert-sub">IBM / Coursera</p>
+            <p className="cert-desc">
+              Python fundamentals for data work: data structures, Pandas, NumPy,
+              working with APIs and data collection.
+            </p>
+            <div className="cert-tags">
+              {["Python", "Pandas", "NumPy"].map((t) => (
+                <span key={t} className="tag-chip">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="cert-card reveal">
             <div className="cert-card__top">
               <span className="cert-issuer">Google / Coursera</span>
               <span className="cert-badge">In Progress</span>
@@ -647,17 +717,17 @@ export default function App() {
 
       {/* ── BLOGS ── */}
       <section id="blogs" className="section elegant-section">
-        <div className="section-topline">04 / 05 — Writing</div>
-        <h2 className="section-title">
+        <div className="section-topline">04 — Writing</div>
+        <h2 className="section-title reveal">
           Thoughts &amp;
           <br />
           Reflections
         </h2>
         <div className="blogs-grid" style={{ marginTop: "44px" }}>
           {BLOGS.map((b) => (
-            <div key={b.id} className="elegant-card">
+            <div key={b.id} className="elegant-card reveal">
               <div className="card-corner-br" />
-              <div className="card-number">{b.num} //</div>
+              <div className="card-number">{b.num}</div>
               <h3 className="card-title">{b.title}</h3>
               <p className="card-text">{b.excerpt}</p>
               <p className="blog-hashtags">{b.tags}</p>
@@ -666,7 +736,7 @@ export default function App() {
                   className="btn-secondary small"
                   onClick={() => setSelectedBlog(b)}
                 >
-                  Read More ↗
+                  Read more
                 </button>
               </div>
             </div>
@@ -683,10 +753,9 @@ export default function App() {
             <div
               style={{
                 marginTop: "14px",
-                fontFamily: "'Share Tech Mono', monospace",
-                fontSize: "9px",
-                color: "rgba(0,255,136,0.4)",
-                letterSpacing: "0.06em",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "12px",
+                color: "#6f7b91",
               }}
             >
               {selectedBlog.tags}
@@ -705,8 +774,8 @@ export default function App() {
 
       {/* ── CONTACT ── */}
       <section id="contact" className="section elegant-section contact-section">
-        <div className="section-topline">05 / 05 — Get in Touch</div>
-        <div className="contact-grid">
+        <div className="section-topline">05 — Get in touch</div>
+        <div className="contact-grid reveal">
           <div>
             <h2 className="section-title">
               Let&apos;s
@@ -716,15 +785,16 @@ export default function App() {
           </div>
           <div className="contact-right">
             <p className="contact-text">
-              If you&apos;d like to collaborate, discuss projects, or just
-              connect — feel free to reach out.
+              I&apos;m looking for graduate roles in machine learning, data
+              science and software engineering from 2027. If you&apos;re hiring
+              or want to talk about a project, get in touch.
             </p>
             <div className="contact-actions">
               <a
-                href="mailto:bhawani.lal@hotmail.com"
+                href="mailto:bhawanilal@hotmail.com"
                 className="btn-primary contact-btn link-btn"
               >
-                Send an Email
+                Email me
               </a>
               <div className="contact-row">
                 <a
@@ -749,11 +819,11 @@ export default function App() {
         </div>
 
         <footer className="footer-bar">
-          <span className="brand-mark" style={{ fontSize: "12px" }}>
-            BL_SYS
+          <span className="brand-mark" style={{ fontSize: "14px" }}>
+            Bhawani Lal
           </span>
           <span className="footer-copy">
-            © 2026 Bhawani Lal — All systems nominal
+            © 2026 Bhawani Lal · Glasgow, UK
           </span>
         </footer>
       </section>
