@@ -201,6 +201,23 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeProject, setActiveProject] = useState(0);
   const [stackPaused, setStackPaused] = useState(false);
+  const [modalClosing, setModalClosing] = useState(false);
+
+  const closeProject = () => {
+    setModalClosing(true);
+    setTimeout(() => {
+      setSelectedProject(null);
+      setModalClosing(false);
+    }, 280);
+  };
+
+  // Close the project popup with the Escape key
+  useEffect(() => {
+    if (!selectedProject) return;
+    const onKey = (e) => e.key === "Escape" && closeProject();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedProject]);
 
   const nProjects = PROJECTS.length;
   const nextProject = () => setActiveProject((i) => (i + 1) % nProjects);
@@ -495,7 +512,7 @@ export default function App() {
 
       {/* ── PROJECT MODAL ── */}
       {selectedProject && (
-        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
+        <div className={`modal-overlay ${modalClosing ? "closing" : ""}`} onClick={closeProject}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
 
             {selectedProject.badge && (
@@ -596,7 +613,7 @@ export default function App() {
             <div style={{ marginTop: "26px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
               <button
                 className="btn-primary small"
-                onClick={() => setSelectedProject(null)}
+                onClick={closeProject}
               >
                 Close
               </button>

@@ -625,7 +625,8 @@ h1, h2, h3 {
   padding: 40px;
   color: var(--text);
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
-  animation: popupScale 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: 50% 20%;
+  animation: modalIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .modal-title {
@@ -879,6 +880,30 @@ h1, h2, h3 {
   scroll-margin-top: 80px;
 }
 
+/* ── POPUP OPEN / CLOSE ANIMATION ────── */
+@keyframes modalIn {
+  from { opacity: 0; transform: perspective(1200px) translateY(48px) scale(0.92) rotateX(10deg); }
+  to   { opacity: 1; transform: perspective(1200px) translateY(0) scale(1) rotateX(0); }
+}
+@keyframes modalOut {
+  to { opacity: 0; transform: perspective(1200px) translateY(28px) scale(0.95); }
+}
+@keyframes overlayOut { to { opacity: 0; } }
+
+.modal-box > * {
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.modal-box > *:nth-child(1) { animation-delay: 0.12s; }
+.modal-box > *:nth-child(2) { animation-delay: 0.18s; }
+.modal-box > *:nth-child(3) { animation-delay: 0.24s; }
+.modal-box > *:nth-child(4) { animation-delay: 0.3s; }
+.modal-box > *:nth-child(5) { animation-delay: 0.36s; }
+.modal-box > *:nth-child(6) { animation-delay: 0.42s; }
+.modal-box > *:nth-child(7) { animation-delay: 0.48s; }
+
+.modal-overlay.closing { animation: overlayOut 0.28s ease forwards; }
+.modal-overlay.closing .modal-box { animation: modalOut 0.28s ease forwards; }
+
 /* ══════════════════════════════════════
    MOTION EXTRAS
    ══════════════════════════════════════ */
@@ -1034,4 +1059,5 @@ h1, h2, h3 {
   .stack-card.pos-0 .stack-main > *, .stack-card.pos-0 .stack-results,
   .stack-progress, .hero-kicker::before, .hero-aurora .blob { animation: none; }
   .hero-letter { animation: none; opacity: 1; transform: none; }
+  .modal-box, .modal-box > *, .modal-overlay.closing, .modal-overlay.closing .modal-box { animation: none; }
 }
